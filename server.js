@@ -18,11 +18,14 @@ const dbConfig = require('./config/dbConfig');
 mongoose.connect(dbConfig.mongoURI, { 
     useNewUrlParser: true, 
     useUnifiedTopology: true, 
-    useCreateIndex: true, 
-    useFindAndModify: false 
+    retryWrites: true, 
+    w: 'majority' 
 })
     .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+    .catch(err => {
+        console.error('MongoDB connection error:', err.message);
+        console.error('Error details:', err);
+    });
 
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
@@ -72,4 +75,3 @@ app.use((req, res, next) => {
   }
   next();
 });
- 
