@@ -24,7 +24,7 @@ mongoose.connect(dbConfig.mongoURI, {
     .then(() => console.log('MongoDB connected'))
     .catch(err => {
         console.error('MongoDB connection error:', err.message);
-        console.error('Error details:', err);
+        console.error('Error details>>>>>>>>>>>>:', err);
     });
 
 const uploadsDir = path.join(__dirname, 'uploads');
